@@ -25,14 +25,13 @@ export class UsuariosService {
         return 'Usuario registrado exitosamente';
     }
 
-    obtenerUsuarioId(@Param('id') id: number): any {
+    obtenerUsuarioId(@Param('id') id: number): Usuario {
         for (let i of this.listaUsuarios) {
             if (i.id == id) {
                 return i;
             }
         }
-        //no pude colocar el res.status(404);
-        return 'Error 404';
+        return null;
     }
 
     obtenerUsuarios(): usuarioDTO[] {

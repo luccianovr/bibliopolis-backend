@@ -17,8 +17,12 @@ export class UsuariosController {
     }
 
     @Get(':id')
-    obtenerUsuarioId(@Param('id') id: number): any {
-        return this.servicio.obtenerUsuarioId(id);
+    obtenerUsuarioId(@Res() response, @Param('id') id: number) {
+        let encontrado: Usuario = this.servicio.obtenerUsuarioId(id);
+        if (encontrado == null) {
+            return response.status(HttpStatus.NOT_FOUND).send("Error 404");
+        }
+        return response.status(HttpStatus.OK).send(encontrado);
     }
 
     @Get()

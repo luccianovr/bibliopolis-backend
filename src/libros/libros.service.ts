@@ -1,17 +1,18 @@
-import { Injectable, Post, Body, Param, Get, Query, Delete } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Libro } from '../models/claseLibro';
 @Injectable()
 export class LibrosService {
 
     public listaLibros: Libro[] = [];
 
-    crearLibro(libro: Libro): void {
+    crearLibro(libro: Libro): Libro {
         for (let i of this.listaLibros) {
-            if (i.isbn === libro.isbn) {
+            if (i.isbn == libro.isbn) {
                 return null;
             }
         }
         this.listaLibros.push(libro);
+        return libro;
     }
 
     obtenerSegunISBN(isbn: number): Libro {
@@ -27,13 +28,14 @@ export class LibrosService {
         for (let i of this.listaLibros) {
             if (i.autor === autor || i.genero === genero) {
                 return i;
+            } else {
+                return this.listaLibros;
             }
         }
-        return this.listaLibros;
     }
 
 
-    eliminarSegunISBN(@Param('isbn') isbn: number): void {
+    eliminarSegunISBN(isbn: number): any {
         for (let i of this.listaLibros) {
             let index: number = this.listaLibros.findIndex(i => i.isbn == isbn)
             if (index != -1) {

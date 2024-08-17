@@ -1,4 +1,4 @@
-import { Injectable, Param, Body, Res, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Usuario } from '../models/claseUsuario';
 import { usuarioDTO } from 'src/models/usuarioDTO';
 
@@ -7,7 +7,7 @@ export class UsuariosService {
 
     public listaUsuarios: Usuario[] = [];
 
-    registrarUsuario(@Body() usuario: Usuario): string {
+    registrarUsuario(usuario: Usuario): string {
         let existeUsuario: boolean = false;
         for (let i of this.listaUsuarios) {
             if (i.correoElectronico == usuario.correoElectronico) {
@@ -25,7 +25,7 @@ export class UsuariosService {
         return 'Usuario registrado exitosamente';
     }
 
-    obtenerUsuarioId(@Param('id') id: number): Usuario {
+    obtenerUsuarioId(id: number): Usuario {
         for (let i of this.listaUsuarios) {
             if (i.id == id) {
                 return i;
@@ -42,7 +42,7 @@ export class UsuariosService {
         return usuariosDTO;
     }
 
-    eliminarUsuarioporId(@Param('id') id: number): void {
+    eliminarUsuarioporId(id: number): void {
         for (let i of this.listaUsuarios) {
             let index: number = this.listaUsuarios.findIndex(i => i.id == id)
             if (index != -1) {
